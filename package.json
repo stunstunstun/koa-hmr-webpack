@@ -1,0 +1,43 @@
+{
+  "name": "koa-webpack-example",
+  "version": "1.0.0",
+  "description": "HMR with Koa2, Webpack",
+  "main": "server.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --config config/index.js",
+    "start": "cross-env NODE_ENV=development node server.js",
+    "pm2": "pm2",
+    "serve": "cross-env PORT=10080 pm2 start server.js -i 4 --name koa-webpack-example && pm2 save 2> /dev/null"
+  },
+  "author": "stunstunstun",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stunstunstun/koa-webpack-example.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "cross-env": "^5.1.5",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.9.0",
+    "pm2": "^2.10.4",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-middleware": "^3.1.3",
+    "webpack-hot-middleware": "^2.22.2",
+    "webpack-merge": "^4.1.2"
+  }
+}
