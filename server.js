@@ -1,4 +1,3 @@
-const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
 const webpackMiddleware = require("webpack-dev-middleware")
@@ -26,5 +25,6 @@ if (isProd) {
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`Server is listening on ${port} port`)
 })
