@@ -8,8 +8,8 @@
     "lint:fix": "eslint --fix . --ignore-path .eslintignore",
     "build": "cross-env NODE_ENV=production webpack --config config/index.js",
     "start": "cross-env NODE_ENV=development node server.js",
-    "pm2": "pm2",
-    "serve": "cross-env PORT=10080 pm2 start server.js -i 4 --name koa-webpack-example && pm2 save 2> /dev/null"
+    "serve": "cross-env NODE_ENV=production PORT=10080 pm2 start server.js -i 4 --name koa-webpack-example --merge-logs --log-date-format='YYYY-MM-DD HH:mm Z' && pm2 save 2> /dev/null",
+    "stop": "pm2 stop koa-webpack-example"
   },
   "author": "stunstunstun",
   "repository": {
@@ -33,7 +33,6 @@
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.9.0",
-    "pm2": "^2.10.4",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.5",

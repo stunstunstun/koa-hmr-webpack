@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const webpack = require('webpack')
 const webpackMiddleware = require("webpack-dev-middleware")
 const webpackHotMiddleware = require("webpack-hot-middleware")
@@ -12,7 +13,10 @@ const app = express()
 // TODO: Configure html template in webpack
 // TODO: Migrate to Koa2
 if (isProd) {
-  app.use('/static/', express.static('dist/static'))
+  const staticPath = path.resolve(__dirname, './dist/static')
+  const indexHtml = path.resolve(__dirname, './dist/index.html')
+  app.use('/static/', express.static(staticPath))
+  app.get('/', (req, res) => res.sendFile(indexHtml))
 } else {
   app.use(webpackMiddleware(webpackCompiler, {
     noInfo: true,
