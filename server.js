@@ -4,8 +4,7 @@ const Koa = require('koa')
 const serve = require('koa-static')
 const mount = require('koa-mount')
 const webpack = require('webpack')
-const webpackDevMiddleware = require('./lib/koaDevMiddleware')
-const webpackHotMiddleware = require('./lib/koaHotMiddleware')
+const { koaDevMiddleware, koaHotMiddleware } = require('./hmr')
 const webpackDevConfig = require('./webpack.dev.config')
 const { isProd } = require('./config/phases')
 
@@ -20,10 +19,10 @@ if (isProd) {
     ctx.body = fs.readFileSync(indexHtml, { encoding: 'utf8' })
   })
 } else {
-  app.use(webpackDevMiddleware(webpackCompiler, {
+  app.use(koaDevMiddleware(webpackCompiler, {
     noInfo: true,
   }))
-  app.use(webpackHotMiddleware(webpackCompiler, {
+  app.use(koaHotMiddleware(webpackCompiler, {
     path: '/__webpack_hmr',
     heartbeat: 10 * 1000,
   }))
