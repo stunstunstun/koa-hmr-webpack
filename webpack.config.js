@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const webpackBaseConfig = require('./config/webpack.base.config')
+const paths = require('./config/paths')
 
 module.exports = merge(webpackBaseConfig, {
   mode: 'production',
@@ -10,6 +11,10 @@ module.exports = merge(webpackBaseConfig, {
     'babel-polyfill',
     './index',
   ],
+  output: {
+    path: paths.output,
+    filename: 'static/js/[name].[hash:8].js',
+  },
   optimization: {
     minimizer: [
       new UglifyJsPlugin({

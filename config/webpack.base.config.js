@@ -4,10 +4,6 @@ const paths = require('./paths')
 
 module.exports = {
   context: paths.context,
-  output: {
-    path: paths.output,
-    filename: 'static/js/[name].[hash:8].js',
-  },
   module: {
     rules: [{
         test: /\.(js|jsx|mjs)$/,

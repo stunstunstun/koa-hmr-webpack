@@ -1,24 +1,26 @@
-const express = require('express')
+const fs = require('fs')
 const path = require('path')
+const Koa = require('koa')
+const serve = require('koa-static')
+const mount = require('koa-mount')
 const webpack = require('webpack')
-const webpackMiddleware = require("webpack-dev-middleware")
-const webpackHotMiddleware = require("webpack-hot-middleware")
+const webpackDevMiddleware = require('./lib/koaDevMiddleware')
+const webpackHotMiddleware = require('./lib/koaHotMiddleware')
 const webpackDevConfig = require('./webpack.dev.config')
 const { isProd } = require('./config/phases')
 
 const webpackCompiler = webpack(webpackDevConfig)
 
-const app = express()
-
-// TODO: Configure html template in webpack
-// TODO: Migrate to Koa2
+const app = new Koa()
 if (isProd) {
   const staticPath = path.resolve(__dirname, './dist/static')
   const indexHtml = path.resolve(__dirname, './dist/index.html')
-  app.use('/static/', express.static(staticPath))
-  app.get('/', (req, res) => res.sendFile(indexHtml))
+  app.use(mount('/static/', serve(staticPath)))
+  app.use(ctx => {
+    ctx.body = fs.readFileSync(indexHtml, { encoding: 'utf8' })
+  })
 } else {
-  app.use(webpackMiddleware(webpackCompiler, {
+  app.use(webpackDevMiddleware(webpackCompiler, {
     noInfo: true,
   }))
   app.use(webpackHotMiddleware(webpackCompiler, {
