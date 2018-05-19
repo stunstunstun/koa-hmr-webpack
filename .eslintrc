@@ -1,4 +1,5 @@
 {
+  "parser": "babel-eslint",
   "extends": [
     "eslint:recommended"
   ],
@@ -7,5 +8,9 @@
     "commonjs": true,
     "node": true,
     "es6": true
+  }, 
+  "globals": {
+    "document": true,
+    "window": true
   }
 }
